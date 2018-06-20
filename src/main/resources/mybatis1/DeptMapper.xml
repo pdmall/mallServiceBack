@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+ <mapper namespace="com.chen.dao.UsersDao">
+ 	<!-- 用于浏览数据的收集-->
+ 	<insert id="shuju"  >
+ 		insert into  
+ 			xinxi(shepu,leibie,possid,sun,userid,stime,dtime,time) 
+ 		values
+ 			(#{0},#{1},#{2},#{3},#{4},#{5},#{6},#{7})
+ 	</insert> 
+ 	<!--用于验证用户的查询  -->
+ 	<select id="findone" resultType="com.chen.entity.Users">
+   		select
+   			 * 
+   		from
+   			 users 
+   		WHERE
+   			 name=#{0} and password=#{1}
+	</select>
+	
+ 	<!-- 用于浏览信息的查询 -->
+    <select id="findall" resultType="com.chen.entity.Xinxi">
+ 		select
+ 			 * 
+ 		from 
+ 			xinxi
+ 	</select>
+ 	<!-- 根据条件查询数据 -->
+ 	<select id="findByfor" resultType="com.chen.entity.Xinxi">
+ 	 SELECT 
+ 	 	* 
+ 	 FROM 
+ 	 	xinxi 
+ 	 WHERE 
+ 	 	shepu = IF(#{0}='',shepu,#{0}) 
+ 	AND 
+ 		leibie = IF(#{1} ='',leibie, #{1})
+ 	and
+ 		possid = if(#{2}='',possid,#{2})	
+ 	and
+ 		time = if(#{3}='',time,#{3})
+ 	</select>
+ 	
+ </mapper>
